@@ -1,0 +1,34 @@
+extends: [ spectral:oas ]
+
+rules:
+  # generell ausgeschaltet
+  info-license: off
+  license-url: off
+  operation-description: off # Eigene rule-function operation-summary-or-description!
+  operation-singular-tag: off # Würde nur einen Tag pro Operation erlauben?
+  operation-tags: off # Erstmal aus -> Operationen-Tags sollten nicht leer sein
+  operation-tag-defined: off # Wenn Operationen auch Tags haben sinnvoll
+  tag-description: off # Tag-Beschreibung aktuell nicht vorhanden (Später Zentral?)
+
+  # error statt warn
+  info-contact: error
+  oas3-api-servers: error
+  duplicated-entry-in-enum: error
+  operation-success-response: error
+
+  # nur v2
+  oas2-unused-definition: off # Regel kann u. U. false-positives werfen
+  # nur v3
+  oas3-unused-component: off # Regel kann u. U. false-positives werfen
+
+  # eigene Regeln
+  info-title:
+    description: Info "title" must be present and non-empty string.
+    message: Info "title" must be present and non-empty string.
+    given: $.info
+    severity: error
+    then:
+      field: title
+      function: truthy
+
+
